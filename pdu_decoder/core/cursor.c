@@ -25,15 +25,18 @@ static void read_u32(uint32_t *out, const Cursor *c, size_t n) {
 }
 
 State c_select(uint32_t *out, Cursor *c, size_t n, size_t step) {
+  if (out == NULL || c == NULL || c->ptr_buf == NULL) {
+    return C_ERR;
+  }
   if (n == 0 || n > 4) {
-    return ERR;
+    return C_ERR;
   }
   if (c->pos > c->len) {
-    return END;
+    return C_END;
   }
   size_t left = c->len - c->pos;
   if (left < n || left < step) {
-    return END;
+    return C_END;
   }
   switch (n) {
   case 1:
@@ -47,5 +50,5 @@ State c_select(uint32_t *out, Cursor *c, size_t n, size_t step) {
     break;
   }
   c->pos += step;
-  return OK;
+  return C_OK;
 }

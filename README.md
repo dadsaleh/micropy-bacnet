@@ -10,27 +10,33 @@ The decoder lives in plain C with no dependencies, so it can be tested on a desk
 
 Feat. TODO:
 
-- [ ] Decoders for the BVLC, NPDU, and APDU layers
+- [x] BVLC Decoder
+- [-] NPDU Decoder (In progress)
+- [ ] APDU Decoder
 - [ ] BACnet tag and value decoding
 - [ ] Who-Is, I-Am, and ReadProperty support
 - [ ] Encoder so a device can reply
 - [ ] Native MicroPython module for the ESP32
-- [ ] Performance Benchmarking
+- [ ] Performance benchmarking
 
 ## Status
 
-Cursor is tested and finished, with plans to move to BVLC parsing
+Cursor is tested and fuzzed, and BVLC parsing is in progress.
 
 ## Testing
 
 Run `./unit_test.sh` from the repo root. Tests use [Unity](https://github.com/ThrowTheSwitch/Unity), which is included in `vendor/unity`.
 
+Run `./fuzz.sh` to fuzz the parsers in `test/fuzz`
+  - *Requires: clang and kitty*
+
 ## AI Assistance
 
 I use AI (Claude) as a tutor to answer questions, and sometimes to modify/edit code, or add more test cases:
 
-- `unit_test.sh`, `compile_flags.txt`
+- `unit_test.sh`, `fuzz.sh`, `compile_flags.txt`
 - `test/test_cursor.c`: 9 of the 20 unit tests
+- `test/fuzz/fuzz_cursor.c`
 - `pdu_decoder/core/cursor.c`: cleanup of the read helpers
 - Various enhancements to documentation wording/spelling and structure
 
